@@ -9,33 +9,105 @@ html, body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background: transparent;
+  background: transparent !important;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-#dial-container {
+#dial-wrapper {
   position: relative;
-  width: 280px;
-  height: 280px;
+  width: 320px;
+  height: 320px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+#radial-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 320px;
+  height: 320px;
+  pointer-events: auto;
+}
+
+/* Individual pie slice shape */
+.slice-path {
+  fill: rgba(22, 27, 34, 0.88);
+  stroke: rgba(255, 255, 255, 0.12);
+  stroke-width: 1.5;
+  cursor: pointer;
+  transition: fill 0.15s ease, stroke 0.15s ease, transform 0.15s ease;
+  transform-origin: 0px 0px;
+}
+
+/* When a slice is hovered or selected by pressing 1-8 */
+.slice-path:hover,
+.slice-path.active {
+  fill: rgba(56, 139, 253, 0.85);
+  stroke: #ffffff;
+  stroke-width: 2;
+  transform: scale(1.04);
+}
+
+/* Text label and hotkey number on slice */
+.slice-label {
+  fill: #ffffff;
+  font-size: 11px;
+  font-weight: 600;
+  pointer-events: none;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+.slice-key {
+  fill: rgba(255, 255, 255, 0.5);
+  font-size: 9px;
+  font-weight: 700;
+  pointer-events: none;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+/* Center circular hub */
 #center-hub {
-  width: 70px;
-  height: 70px;
-  background: rgba(15, 30, 45, 0.95);
+  position: relative;
+  z-index: 10;
+  width: 96px;
+  height: 96px;
+  background: rgba(13, 17, 23, 0.95);
   border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: #ffffff;
-  font-size: 13px;
-  font-weight: 600;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  text-align: center;
+  padding: 6px;
+}
+
+#hub-icon {
+  font-size: 20px;
+  margin-bottom: 2px;
+}
+
+#hub-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #58a6ff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 84px;
+}
+
+#hub-sub {
+  font-size: 8px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 2px;
 }
