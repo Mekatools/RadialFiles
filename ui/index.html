@@ -7,11 +7,20 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="dial-container">
+  <div id="dial-wrapper">
+    <!-- SVG that renders the pie slices -->
+    <svg id="radial-svg" viewBox="-160 -160 320 320">
+      <g id="slices-group"></g>
+    </svg>
+
+    <!-- Center hub showing current hovered action or file info -->
     <div id="center-hub">
-      <span id="center-label">Radial</span>
+      <div id="hub-icon">⚡</div>
+      <div id="hub-label">RadialFiles</div>
+      <div id="hub-sub">Press 1-8 or hover</div>
     </div>
   </div>
+
   <script src="dial.js"></script>
 </body>
 </html>
