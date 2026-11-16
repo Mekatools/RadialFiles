@@ -17,6 +17,21 @@ jobs:
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
 
+      - name: Generate default application icon
+        shell: powershell
+        run: |
+          New-Item -ItemType Directory -Force -Path "src-tauri/icons"
+          Add-Type -AssemblyName System.Drawing
+          $bmp = New-Object System.Drawing.Bitmap 32, 32
+          $g = [System.Drawing.Graphics]::FromImage($bmp)
+          $g.Clear([System.Drawing.Color]::DodgerBlue)
+          $g.Dispose()
+          $icon = [System.Drawing.Icon]::FromHandle($bmp.GetHicon())
+          $fs = New-Object System.IO.FileStream "src-tauri/icons/icon.ico", ([System.IO.FileMode]::Create)
+          $icon.Save($fs)
+          $fs.Close()
+          $bmp.Dispose()
+
       - name: Build RadialFiles
         working-directory: src-tauri
         run: cargo check --verbose
